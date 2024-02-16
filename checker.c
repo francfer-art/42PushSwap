@@ -6,11 +6,24 @@
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 16:05:46 by francfer          #+#    #+#             */
-/*   Updated: 2024/01/05 17:18:50 by francfer         ###   ########.fr       */
+/*   Updated: 2024/02/16 13:07:01 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	free_list(char **list)
+{
+	int	i;
+
+	i = 0;
+	while (list[i])
+	{
+		free(list[i]);
+		i++;
+	}
+	free(list);
+}
 
 static char	*getting_line(int args, char **argv)
 {
@@ -95,16 +108,25 @@ int	main(int args, char **argv)
 	t_node	*stack_a;
 	t_node	*stack_b;
 
+	line = NULL;
 	if (args < 2)
 		return (0);
+	else if (args == 2 && !argv[1][0])
+		exit_error(NULL, NULL);
 	else
 		line = getting_line(args, argv);
 	new = ft_split(line);
 	if (!is_correct_input(new))
+	{
+		free(line);
+		free_list(new);
 		exit_error(NULL, NULL);
+	}
 	stack_b = NULL;
 	stack_a = fill_stack_values(new);
 	assign_index(stack_a, get_stack_size(stack_a) + 1);
 	commands(stack_a, stack_b);
+	free(line);
+	free_list(new);
 	return (0);
 }

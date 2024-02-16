@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 13:03:56 by francfer          #+#    #+#             */
-/*   Updated: 2024/02/15 21:07:34 by francfer         ###   ########.fr       */
+/*   Updated: 2024/02/16 13:06:40 by francfer         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -60,14 +60,20 @@ static char	*getting_line(int args, char **argv)
 	return (line);
 }
 
+//static void checkForLeaks()
+//{
+//    system("push_swap");
+//}
+
 int	main(int args, char **argv)
 {
-	char	*line = NULL;
+	char	*line;
 	char	**new;
 	t_node	*stack_a;
 	t_node	*stack_b;
 	int		stack_size;
-	
+
+	line = NULL;
 	if (args < 2)
 		return (0);
 	else if (args == 2 && !argv[1][0])
@@ -76,7 +82,11 @@ int	main(int args, char **argv)
 		line = getting_line(args, argv);
 	new = ft_split(line);
 	if (!is_correct_input(new))
+	{
+		free(line);
+		free_list(new);
 		exit_error(NULL, NULL);
+	}
 	stack_b = NULL;
 	stack_a = fill_stack_values(new);
 	stack_size = get_stack_size(stack_a);
