@@ -55,7 +55,7 @@ rrr: rra and rrb at the same time.
 
 An example is provided to illustrate the effect of some instructions in sorting a random list of integers.
 
-```c
+```table
 ----------------------------------------------------------------------------------------------------------
 Init a and b:
 2
