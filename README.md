@@ -132,7 +132,7 @@ In case of errors (e.g., non-integer arguments, duplicates, integers exceeding t
 
 To use the push_swap program, compile the source files using the provided Makefile. Then run the program with the stack a as an argument.
 
-```bash
+```
 ./push_swap 4 2 8 5 1
 
 ./push_swap "4 2 8 5 1"
