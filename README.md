@@ -134,6 +134,8 @@ To use the push_swap program, compile the source files using the provided Makefi
 
 ```bash
 ./push_swap 4 2 8 5 1
+./push_swap "4 2 8 5 1"
+./push_swap 4 2 8 "5 1"
 ```
 
 This will display the smallest list of instructions to sort the stack a.
