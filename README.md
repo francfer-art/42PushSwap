@@ -18,7 +18,7 @@
 - [Rules](#rules)
 - [Example](#Example)
 - [Requirements](#requirements)
-- [Usage](#usage))
+- [Usage](#usage)
 - [Bonus Part](#bonus-part)
 - [Contributing](#contributing)
 - [License](#license)
