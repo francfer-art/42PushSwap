@@ -17,11 +17,9 @@
 - [Introduction](#introduction)
 - [Rules](#rules)
 - [Example](#Example)
-- [Usage](#Usage)
 - [Requirements](#requirements)
-- [Usage](#usage)
-- [Avaliable Parameters](#avaliable-parameters)
-- [Bonus](#bonus)
+- [Usage](#usage))
+- [Bonus Part](#bonus-part)
 - [Contributing](#contributing)
 - [License](#license)
 
