@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_check.c                                      :+:      :+:    :+:   */
+/*   input_check_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:06:25 by francfer          #+#    #+#             */
-/*   Updated: 2024/01/05 17:38:02 by francfer         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:12:03 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static int	arg_is_number(char *av)
 {
@@ -79,4 +79,32 @@ int	is_correct_input(char **av)
 	if (have_duplicates(av))
 		return (0);
 	return (1);
+}
+
+int	nbstr_cmp(const char *s1, const char *s2)
+{
+	int	sign1;
+	int	sign2;
+	int	len1;
+	int	len2;
+
+	skipzeros(&s1);
+	skipzeros(&s2);
+	sign1 = determinesign(&s1);
+	sign2 = determinesign(&s2);
+	skipzeros(&s1);
+	skipzeros(&s2);
+	len1 = length(s1, sign1);
+	len2 = length(s2, sign2);
+	if (len1 != len2)
+		return (1);
+	while (*s1 == *s2 && *s1 != '\0')
+	{
+		s1++;
+		s2++;
+	}
+	if (*s1 == '\0')
+		return (0);
+	else
+		return (1);
 }

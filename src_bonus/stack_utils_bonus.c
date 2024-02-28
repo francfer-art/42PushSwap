@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*   stack_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:22:41 by francfer          #+#    #+#             */
-/*   Updated: 2024/02/06 15:52:36 by francfer         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:14:42 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 t_node	*get_stack_bottom(t_node *stack)
 {
@@ -30,7 +30,7 @@ t_node	*stack_new(int value)
 {
 	t_node	*new;
 
-	new =malloc(sizeof * new);
+	new = malloc(sizeof * new);
 	if (!new)
 		return (NULL);
 	new->value = value;

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker1.c                                         :+:      :+:    :+:   */
+/*   checker1_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:06:27 by francfer          #+#    #+#             */
-/*   Updated: 2024/01/05 17:19:03 by francfer         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:11:49 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static void	do_swap(char *line, t_node **stack_a, t_node **stack_b)
 {
@@ -56,6 +56,7 @@ void	commands(t_node *stack_a, t_node *stack_b)
 {
 	char	*line;
 
+	assign_index(stack_a, get_stack_size(stack_a) + 1);
 	while (1)
 	{
 		line = get_next_line(0);
@@ -71,8 +72,19 @@ void	commands(t_node *stack_a, t_node *stack_b)
 		}
 		do_commands(line, &stack_a, &stack_b);
 		free(line);
-		if (is_sorted(stack_a) && get_stack_size(stack_b) == 0)
-			break ;
 	}
 	print_checker_res(&stack_a, &stack_b);
+}
+
+void	free_list(char **list)
+{
+	int	i;
+
+	i = 0;
+	while (list[i])
+	{
+		free(list[i]);
+		i++;
+	}
+	free(list);
 }

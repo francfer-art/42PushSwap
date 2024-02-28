@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:22:14 by francfer          #+#    #+#             */
-/*   Updated: 2024/01/23 10:12:41 by francfer         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:13:07 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
 
 # include <limits.h>
 # include <stddef.h>
@@ -84,10 +84,14 @@ int					is_correct_input1(char **av);
 int					is_digit(char c);
 int					is_sign(char c);
 int					nbstr_cmp(const char *s1, const char *s2);
+int					determinesign(const char **s);
+void				skipzeros(const char **s);
+int					length(const char *s, int sign);
 
 char				**ft_split(char *str);
 int					word_count(char *str);
 int					splited_size(char **words);
+void				free_list(char **list);
 
 char				*ft_strjoin(char *s1, char *s2);
 size_t				ft_strlen(char *s);

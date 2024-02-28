@@ -142,7 +142,6 @@ To use the push_swap program, compile the source files using the provided Makefi
 ```
 
 This will display the smallest list of instructions to sort the stack a.
-Thank you for using push_swap!
 
 ## Bonus Part
 

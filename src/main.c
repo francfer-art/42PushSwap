@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/31 16:05:46 by francfer          #+#    #+#             */
-/*   Updated: 2024/02/16 13:07:01 by francfer         ###   ########.fr       */
+/*   Created: 2023/11/25 13:03:56 by francfer          #+#    #+#             */
+/*   Updated: 2024/02/20 08:54:05 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	free_list(char **list)
+void	free_list(char **list)
 {
 	int	i;
 
@@ -23,6 +23,17 @@ static void	free_list(char **list)
 		i++;
 	}
 	free(list);
+}
+
+static void	push_swap(t_node **stack_a, t_node **stack_b, int stack_size)
+{
+	assign_index(*stack_a, stack_size + 1);
+	if (stack_size == 2 && !is_sorted(*stack_a))
+		do_sa(stack_a);
+	else if (stack_size == 3)
+		tiny_sort(stack_a);
+	else if (stack_size > 3 && !is_sorted(*stack_a))
+		sort(stack_a, stack_b);
 }
 
 static char	*getting_line(int args, char **argv)
@@ -50,55 +61,12 @@ static char	*getting_line(int args, char **argv)
 	return (line);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+static void	final_clean_down(t_node *a, t_node *b, char *line, char **new)
 {
-	while (*s1 && *s2)
-	{
-		if (*s1 != *s2)
-			return (1);
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
-}
-
-int	check_line(char *line)
-{
-	if (!(ft_strcmp(line, "sa\n")))
-		return (0);
-	if (!(ft_strcmp(line, "sb\n")))
-		return (0);
-	if (!(ft_strcmp(line, "ss\n")))
-		return (0);
-	if (!(ft_strcmp(line, "pa\n")))
-		return (0);
-	if (!(ft_strcmp(line, "pb\n")))
-		return (0);
-	if (!(ft_strcmp(line, "ra\n")))
-		return (0);
-	if (!(ft_strcmp(line, "rb\n")))
-		return (0);
-	if (!(ft_strcmp(line, "rr\n")))
-		return (0);
-	if (!(ft_strcmp(line, "rra\n")))
-		return (0);
-	if (!(ft_strcmp(line, "rrb\n")))
-		return (0);
-	if (!(ft_strcmp(line, "rrr\n")))
-		return (0);
-	return (1);
-}
-
-void	print_checker_res(t_node **stack_a, t_node **stack_b)
-{
-	if (is_sorted(*stack_a))
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-	if (*stack_a)
-		free_stack(stack_a);
-	if (*stack_b)
-		free_stack(stack_b);
+	free_stack(&a);
+	free_stack(&b);
+	free_list(new);
+	free(line);
 }
 
 int	main(int args, char **argv)
@@ -107,6 +75,7 @@ int	main(int args, char **argv)
 	char	**new;
 	t_node	*stack_a;
 	t_node	*stack_b;
+	int		stack_size;
 
 	line = NULL;
 	if (args < 2)
@@ -118,15 +87,13 @@ int	main(int args, char **argv)
 	new = ft_split(line);
 	if (!is_correct_input(new))
 	{
-		free(line);
 		free_list(new);
 		exit_error(NULL, NULL);
 	}
 	stack_b = NULL;
 	stack_a = fill_stack_values(new);
-	assign_index(stack_a, get_stack_size(stack_a) + 1);
-	commands(stack_a, stack_b);
-	free(line);
-	free_list(new);
+	stack_size = get_stack_size(stack_a);
+	push_swap(&stack_a, &stack_b, stack_size);
+	final_clean_down(stack_a, stack_b, line, new);
 	return (0);
 }

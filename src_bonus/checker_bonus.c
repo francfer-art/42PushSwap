@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francfer <francfer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 13:03:56 by francfer          #+#    #+#             */
-/*   Updated: 2024/02/16 13:06:40 by francfer         ###   ########.fr       */
+/*   Created: 2023/12/31 16:05:46 by francfer          #+#    #+#             */
+/*   Updated: 2024/02/27 18:11:46 by francfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-static void	free_list(char **list)
-{
-	int	i;
-
-	i = 0;
-	while (list[i])
-	{
-		free(list[i]);
-		i++;
-	}
-	free(list);
-}
-
-static void	push_swap(t_node **stack_a, t_node **stack_b, int stack_size)
-{
-	if (stack_size == 2 && !is_sorted(*stack_a))
-		do_sa(stack_a);
-	else if (stack_size == 3)
-		tiny_sort(stack_a);
-	else if (stack_size > 3 && !is_sorted(*stack_a))
-		sort(stack_a, stack_b);
-}
+#include "push_swap_bonus.h"
 
 static char	*getting_line(int args, char **argv)
 {
@@ -60,10 +37,56 @@ static char	*getting_line(int args, char **argv)
 	return (line);
 }
 
-//static void checkForLeaks()
-//{
-//    system("push_swap");
-//}
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (1);
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
+int	check_line(char *line)
+{
+	if (!(ft_strcmp(line, "sa\n")))
+		return (0);
+	if (!(ft_strcmp(line, "sb\n")))
+		return (0);
+	if (!(ft_strcmp(line, "ss\n")))
+		return (0);
+	if (!(ft_strcmp(line, "pa\n")))
+		return (0);
+	if (!(ft_strcmp(line, "pb\n")))
+		return (0);
+	if (!(ft_strcmp(line, "ra\n")))
+		return (0);
+	if (!(ft_strcmp(line, "rb\n")))
+		return (0);
+	if (!(ft_strcmp(line, "rr\n")))
+		return (0);
+	if (!(ft_strcmp(line, "rra\n")))
+		return (0);
+	if (!(ft_strcmp(line, "rrb\n")))
+		return (0);
+	if (!(ft_strcmp(line, "rrr\n")))
+		return (0);
+	return (1);
+}
+
+void	print_checker_res(t_node **stack_a, t_node **stack_b)
+{
+	if (is_sorted(*stack_a) && get_stack_size(*stack_b) == 0)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	if (*stack_a)
+		free_stack(stack_a);
+	if (*stack_b)
+		free_stack(stack_b);
+}
 
 int	main(int args, char **argv)
 {
@@ -71,7 +94,6 @@ int	main(int args, char **argv)
 	char	**new;
 	t_node	*stack_a;
 	t_node	*stack_b;
-	int		stack_size;
 
 	line = NULL;
 	if (args < 2)
@@ -89,12 +111,8 @@ int	main(int args, char **argv)
 	}
 	stack_b = NULL;
 	stack_a = fill_stack_values(new);
-	stack_size = get_stack_size(stack_a);
-	assign_index(stack_a, stack_size + 1);
-	push_swap(&stack_a, &stack_b, stack_size);
-	free_stack(&stack_a);
-	free_stack(&stack_b);
-	free_list(new);
+	commands(stack_a, stack_b);
 	free(line);
+	free_list(new);
 	return (0);
 }
